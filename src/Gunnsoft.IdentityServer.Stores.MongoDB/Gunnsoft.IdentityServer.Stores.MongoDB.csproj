@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Title>Gunnsoft.IdentityServer.Stores.MongoDB</Title>
+    <AssemblyName>Gunnsoft.IdentityServer.Stores.MongoDB</AssemblyName>
+    <PackageId>Gunnsoft.IdentityServer.Stores.MongoDB</PackageId>
+    <Authors>Andrew Gunn</Authors>
+    <Company>Gunnsoft</Company>
+    <AssemblyTitle>Gunnsoft.IdentityServer.Stores.MongoDB</AssemblyTitle>
+    <Description>
+      Gunnsoft ASP.NET Core Razor
+    </Description>
+    <Copyright>Copyright © Gunnsoft 2018</Copyright>
+    <PackageTags>Gunnsoft;IdentityServer;MongoDB</PackageTags>
+    <PackageProjectUrl>https://github.com/Gunnsoft/gunnsoft-identityserver-stores-mongodb</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Gunnsoft/gunnsoft-identityserver-stores-mongodb</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.1.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+  </ItemGroup>
+
+</Project>
