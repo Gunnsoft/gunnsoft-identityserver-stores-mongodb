@@ -75,16 +75,17 @@ Task("Pack")
     {
         CreateDirectory(artifactsDirectory);
 
-        var artifactFilePath = $@"{artifactsDirectory}\gunnsoft-identityserver-stores-mongodb.nupkg";
+        CopyFile($@".\src\Gunnsoft.IdentityServer.Stores.MongoDB\bin\{configuration}\Gunnsoft.IdentityServer.Stores.MongoDB.{version}.nupkg", $@"{artifactsDirectory}\gunnsoft-identityserver-stores-mongodb.nupkg"); 
         
-        CopyFile($@".\src\Gunnsoft.IdentityServer.Stores.MongoDB\bin\{configuration}\Gunnsoft.IdentityServer.Stores.MongoDB.{version}.nupkg", artifactFilePath); 
-        
-        if (AppVeyor.IsRunningOnAppVeyor)
-        {
-            AppVeyor.UploadArtifact(artifactFilePath, new AppVeyorUploadArtifactsSettings
+        foreach (var filePath in GetFiles($@"{artifactsDirectory}\*.*")) 
+        { 
+            if (AppVeyor.IsRunningOnAppVeyor)
             {
-                DeploymentName = "gunnsoft-identityserver-stores-mongodb"
-            });
+                AppVeyor.UploadArtifact(filePath, new AppVeyorUploadArtifactsSettings
+                {
+                    DeploymentName = filePath.GetFilename().ToString()
+                });
+            }
         }
     });
 
