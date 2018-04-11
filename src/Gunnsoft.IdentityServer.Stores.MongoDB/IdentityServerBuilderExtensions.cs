@@ -1,16 +1,19 @@
 ﻿using System;
 using Gunnsoft.IdentityServer.Stores.MongoDB.Collections.Clients;
 using Gunnsoft.IdentityServer.Stores.MongoDB.Collections.PersistedGrants;
+using IdentityServer4.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
 namespace Gunnsoft.IdentityServer.Stores.MongoDB
 {
-    public static partial class IdentityServerBuilderExtensions
+    public static class IdentityServerBuilderExtensions
     {
         public static IIdentityServerBuilder AddMongoClientStore(this IIdentityServerBuilder extended, MongoUrl mongoUrl)
         {
             MongoConfigurator.Configure();
+
+            BsonClassMapper.MapClient();
 
             var client = new MongoClient(mongoUrl);
 
@@ -23,7 +26,7 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
 
             var clientsCollection = database.GetCollection<Client>(CollectionNames.Clients);
 
-            extended.Services.AddTransient(cc => new MongoClientStore(clientsCollection));
+            extended.Services.AddTransient<IClientStore>(cc => new MongoClientStore(clientsCollection));
 
             return extended;
         }
@@ -31,6 +34,8 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
         public static IIdentityServerBuilder AddMongoPersistedGrantStore(this IIdentityServerBuilder extended, MongoUrl mongoUrl)
         {
             MongoConfigurator.Configure();
+
+            BsonClassMapper.MapPeristedGrant();
 
             var client = new MongoClient(mongoUrl);
 
@@ -43,7 +48,7 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
 
             var persistedGrantsCollection = database.GetCollection<PersistedGrant>(CollectionNames.PersistedGrants);
 
-            extended.Services.AddTransient(cc => new MongoPersistedGrantStore(persistedGrantsCollection));
+            extended.Services.AddTransient<IPersistedGrantStore>(cc => new MongoPersistedGrantStore(persistedGrantsCollection));
 
             return extended;
         }

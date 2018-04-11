@@ -45,7 +45,7 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
             }
 
             return await _persistedGrantsCollection.Find(pg => pg.Key == key)
-                .SortByDescending(pg => pg)
+                .SortByDescending(pg => pg.Id)
                 .Project(pg => new PersistedGrant
                 {
                     ClientId = pg.ClientId,
