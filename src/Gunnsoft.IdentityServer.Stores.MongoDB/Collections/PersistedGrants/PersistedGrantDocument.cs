@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace Gunnsoft.IdentityServer.Stores.MongoDB.Collections.PersistedGrants
 {
-    public class PersistedGrant
+    public class PersistedGrantDocument
     {
         public string ClientId { get; set; }
         public string Data { get; set; }

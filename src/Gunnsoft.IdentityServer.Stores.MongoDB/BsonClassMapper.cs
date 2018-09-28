@@ -8,9 +8,9 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
     {
         public static void MapClient()
         {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(Client)))
+            if (!BsonClassMap.IsClassMapRegistered(typeof(ClientDocument)))
             {
-                BsonClassMap.RegisterClassMap<Client>(cm =>
+                BsonClassMap.RegisterClassMap<ClientDocument>(cm =>
                 {
                     cm.AutoMap();
                     cm.MapIdMember(c => c.Id);
@@ -21,9 +21,9 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
 
         public static void MapPeristedGrant()
         {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(PersistedGrant)))
+            if (!BsonClassMap.IsClassMapRegistered(typeof(PersistedGrantDocument)))
             {
-                BsonClassMap.RegisterClassMap<PersistedGrant>(cm =>
+                BsonClassMap.RegisterClassMap<PersistedGrantDocument>(cm =>
                 {
                     cm.AutoMap();
                     cm.MapIdMember(c => c.Id);

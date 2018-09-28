@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gunnsoft.IdentityServer.Stores.MongoDB.Collections.PersistedGrants;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using MongoDB.Driver;
@@ -9,14 +10,20 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
 {
     public class MongoPersistedGrantStore : IPersistedGrantStore
     {
-        private readonly IMongoCollection<Collections.PersistedGrants.PersistedGrant> _persistedGrantsCollection;
+        private readonly IMongoCollection<PersistedGrantDocument> _persistedGrantsCollection;
 
-        public MongoPersistedGrantStore(IMongoCollection<Collections.PersistedGrants.PersistedGrant> persistedGrantsCollection)
+        public MongoPersistedGrantStore
+        (
+            IMongoCollection<PersistedGrantDocument> persistedGrantsCollection
+        )
         {
             _persistedGrantsCollection = persistedGrantsCollection;
         }
 
-        public async Task<IEnumerable<PersistedGrant>> GetAllAsync(string subjectId)
+        public async Task<IEnumerable<PersistedGrant>> GetAllAsync
+        (
+            string subjectId
+        )
         {
             if (subjectId == null)
             {
@@ -37,7 +44,10 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
                 .ToListAsync();
         }
 
-        public async Task<PersistedGrant> GetAsync(string key)
+        public async Task<PersistedGrant> GetAsync
+        (
+            string key
+        )
         {
             if (key == null)
             {
@@ -59,7 +69,11 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
                 .FirstOrDefaultAsync();
         }
 
-        public async Task RemoveAllAsync(string subjectId, string clientId)
+        public async Task RemoveAllAsync
+        (
+            string subjectId,
+            string clientId
+        )
         {
             if (subjectId == null)
             {
@@ -75,7 +89,12 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
                 pg.SubjectId == subjectId && pg.ClientId == clientId);
         }
 
-        public async Task RemoveAllAsync(string subjectId, string clientId, string type)
+        public async Task RemoveAllAsync
+        (
+            string subjectId,
+            string clientId,
+            string type
+        )
         {
             if (subjectId == null)
             {
@@ -96,7 +115,10 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
                 pg.SubjectId == subjectId && pg.ClientId == clientId && pg.Type == type);
         }
 
-        public async Task RemoveAsync(string key)
+        public async Task RemoveAsync
+        (
+            string key
+        )
         {
             if (key == null)
             {
@@ -106,14 +128,17 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
             await _persistedGrantsCollection.DeleteManyAsync(pg => pg.Key == key);
         }
 
-        public async Task StoreAsync(PersistedGrant grant)
+        public async Task StoreAsync
+        (
+            PersistedGrant grant
+        )
         {
             if (grant == null)
             {
                 throw new ArgumentNullException(nameof(grant));
             }
 
-            var document = new Collections.PersistedGrants.PersistedGrant
+            var document = new Collections.PersistedGrants.PersistedGrantDocument
             {
                 ClientId = grant.ClientId,
                 Data = grant.Data,

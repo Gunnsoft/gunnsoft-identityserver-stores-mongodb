@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Gunnsoft.IdentityServer.Stores.MongoDB.Collections.Clients;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using MongoDB.Driver;
@@ -10,14 +11,20 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
 {
     public class MongoClientStore : IClientStore
     {
-        private readonly IMongoCollection<Collections.Clients.Client> _clientsCollection;
+        private readonly IMongoCollection<ClientDocument> _clientsCollection;
 
-        public MongoClientStore(IMongoCollection<Collections.Clients.Client> clientsCollection)
+        public MongoClientStore
+        (
+            IMongoCollection<ClientDocument> clientsCollection
+        )
         {
             _clientsCollection = clientsCollection;
         }
 
-        public async Task<Client> FindClientByIdAsync(string clientId)
+        public async Task<Client> FindClientByIdAsync
+        (
+            string clientId
+        )
         {
             if (clientId == null)
             {

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
+using MongoDB.Bson;
 
 namespace Gunnsoft.IdentityServer.Stores.MongoDB.Collections.Clients
 {
-    public class Client
+    public class ClientDocument
     {
         public int AbsoluteRefreshTokenLifetime { get; set; } = 2592000;
         public int AccessTokenLifetime { get; set; } = 3600;
@@ -32,7 +33,7 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB.Collections.Clients
         public bool EnableLocalLogin { get; set; } = true;
         public bool FrontChannelLogoutSessionRequired { get; set; } = true;
         public string FrontChannelLogoutUri { get; set; }
-        public int Id { get; set; }
+        public ObjectId Id { get; set; }
         public List<string> IdentityProviderRestrictions { get; set; }
         public int IdentityTokenLifetime { get; set; } = 300;
         public bool IncludeJwtId { get; set; }
