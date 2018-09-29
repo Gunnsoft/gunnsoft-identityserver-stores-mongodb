@@ -19,8 +19,7 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
         )
         {
             MongoConfigurator.ConfigureConventions();
-
-            BsonClassMapper.MapClient();
+            MongoConfigurator.ConfigureClientMapping();
 
             var mongoClient = new MongoClient(mongoUrl);
 
@@ -52,8 +51,7 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
         )
         {
             MongoConfigurator.ConfigureConventions();
-
-            BsonClassMapper.MapPeristedGrant();
+            MongoConfigurator.ConfigurePeristedGrantMapping();
 
             var mongoClient = new MongoClient(mongoUrl);
 

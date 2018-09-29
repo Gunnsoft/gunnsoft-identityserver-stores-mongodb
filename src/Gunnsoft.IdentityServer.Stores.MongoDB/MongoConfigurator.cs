@@ -55,6 +55,19 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
             );
         }
 
+        public static void ConfigureClientMapping()
+        {
+            if (!BsonClassMap.IsClassMapRegistered(typeof(ClientDocument)))
+            {
+                BsonClassMap.RegisterClassMap<ClientDocument>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.MapIdMember(c => c.Id);
+                    cm.SetIgnoreExtraElements(true);
+                });
+            }
+        }
+
         public static async Task ConfigurePersistedGrantsCollectionAsync
         (
             IMongoDatabase mongoDatabase,
@@ -64,6 +77,19 @@ namespace Gunnsoft.IdentityServer.Stores.MongoDB
             if (!await CollectionExistsAsync(mongoDatabase, CollectionNames.PersistedGrants, cancellationToken))
             {
                 await mongoDatabase.CreateCollectionAsync(CollectionNames.PersistedGrants);
+            }
+        }
+
+        public static void ConfigurePeristedGrantMapping()
+        {
+            if (!BsonClassMap.IsClassMapRegistered(typeof(PersistedGrantDocument)))
+            {
+                BsonClassMap.RegisterClassMap<PersistedGrantDocument>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.MapIdMember(c => c.Id);
+                    cm.SetIgnoreExtraElements(true);
+                });
             }
         }
 
